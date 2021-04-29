@@ -36,7 +36,7 @@ def upload_file():
         prediction = model.predict(img_preprocessed)
         args = True
         
-    return render_template('public/index.html', args=args, prediction_text='The CT scan image is of {}'.format(prediction))
+    return render_template('public/index.html', args=args, prediction_text='The CT scan image is of class {}'.format(prediction))
 
 if __name__ == "__main__":
     app.run()
