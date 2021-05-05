@@ -1,6 +1,4 @@
 from tensorflow.keras.models import load_model
-
-import numpy as np
 import numpy as np
 import pandas as pd
 from tensorflow.keras.preprocessing import image
@@ -34,9 +32,13 @@ def upload_file():
         img_batch = np.expand_dims(img_array, axis=0)
         img_preprocessed = preprocess_input(img_batch)
         prediction = model.predict(img_preprocessed)
+        if prediction == [[1.]]:
+            output = "CANCER"
+        else:
+            output = "NORMAL"
         args = True
         
-    return render_template('public/index.html', args=args, prediction_text='The CT scan image is of class {}'.format(prediction))
+    return render_template('public/index.html', args=args, prediction_text='The CT scan image is predicted to be of class {}'.format(output))
 
 if __name__ == "__main__":
     app.run()
